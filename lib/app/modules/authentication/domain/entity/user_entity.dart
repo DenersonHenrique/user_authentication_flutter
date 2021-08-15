@@ -19,14 +19,3 @@ class UserEntity {
     required this.expiresIn,
   });
 }
-
-// {
-//   "kind": "identitytoolkit#VerifyPasswordResponse",
-//   "localId": "iBQL7KwhqAManreGD4m7nsBrEZ82",
-//   "email": "denersonh@gmail.com",
-//   "displayName": "",
-//   "idToken": "",
-//   "registered": true,
-//   "refreshToken": "",
-//   "expiresIn": "3600"
-// }

@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:user_authentication_flutter/app/core/errors/failures.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/data/datasource/user_authentication_datasource.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/data/model/user_model.dart';
+import 'package:user_authentication_flutter/app/modules/authentication/data/datasource/user_authentication_datasource.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/data/repository/user_authentication_repository_imp.dart';
 
 class UserAuthenticationDataSourceMock extends Mock
@@ -13,14 +13,14 @@ void main() {
   late UserAuthenticationRepository repository;
   late UserAuthenticationDataSourceMock dataSource;
   final userModel = UserModel(
-    'kind',
-    'localId',
-    'email',
-    'displayName',
-    'idToken',
-    true,
-    'refreshToken',
-    'expiresIn',
+    kind: 'kind',
+    localId: 'localId',
+    email: 'email',
+    displayName: 'displayName',
+    idToken: 'idToken',
+    registered: true,
+    refreshToken: 'refreshToken',
+    expiresIn: 'expiresIn',
   );
 
   setUp(() {

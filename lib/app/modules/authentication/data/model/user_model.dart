@@ -1,16 +1,16 @@
 import 'package:user_authentication_flutter/app/modules/authentication/domain/entity/user_entity.dart';
 
 class UserModel extends UserEntity {
-  UserModel(
-    String kind,
-    String localId,
-    String email,
-    String displayName,
-    String idToken,
-    bool registered,
-    String refreshToken,
-    String expiresIn,
-  ) : super(
+  UserModel({
+    required String kind,
+    required String localId,
+    required String email,
+    required String displayName,
+    required String idToken,
+    required bool registered,
+    required String refreshToken,
+    required String expiresIn,
+  }) : super(
           kind: kind,
           localId: localId,
           email: email,
@@ -21,16 +21,16 @@ class UserModel extends UserEntity {
           expiresIn: expiresIn,
         );
 
-  fromJson(Map<String, dynamic> json) {
-    kind = json['kind'];
-    localId = json['localId'];
-    email = json['email'];
-    displayName = json['displayName'];
-    idToken = json['idToken'];
-    registered = json['registered'];
-    refreshToken = json['refreshToken'];
-    expiresIn = json['expiresIn'];
-  }
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+        kind: json['kind'],
+        localId: json['localId'],
+        email: json['email'],
+        displayName: json['displayName'],
+        idToken: json['idToken'],
+        registered: json['registered'],
+        refreshToken: json['refreshToken'],
+        expiresIn: json['expiresIn'],
+      );
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
