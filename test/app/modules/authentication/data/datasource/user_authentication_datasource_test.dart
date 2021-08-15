@@ -1,5 +1,6 @@
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:user_authentication_flutter/app/core/errors/exceptions.dart';
 import 'package:user_authentication_flutter/app/core/httpClient/http_client.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/data/model/user_model.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/data/datasource/user_authentication_datasource.dart';
@@ -15,7 +16,8 @@ void main() {
     dataSource = UserAuthenticationDataSource(httpClient: httpClient);
   });
 
-  final json = """{
+  final json =
+      """{
     "kind": "identitytoolkit#VerifyPasswordResponse",
     "localId": "iBQL7KwhqAManreGD4m7nsBrEZ82",
     "email": "denersonh@gmail.com",
@@ -40,6 +42,20 @@ void main() {
       final result = await dataSource.authenticate();
       // Assert
       expect(result, isA<UserModel>());
+    });
+
+    test('Should throw a ServerException when the call is successful',
+        () async {
+      // Arrange
+      when(() => httpClient.get(url: 'url')).thenAnswer(
+        (_) async => HttpResponse(
+          statusCode: 400,
+        ),
+      );
+      // Actual
+      final result = dataSource.authenticate();
+      // Assert
+      expect(() => result, throwsA(ServerException()));
     });
 
     // test('Should call the post method with url', () async {
