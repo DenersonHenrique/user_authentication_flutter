@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:user_authentication_flutter/app/utils/mock_utils.dart';
 import 'package:user_authentication_flutter/app/core/errors/exceptions.dart';
 import 'package:user_authentication_flutter/app/core/httpClient/http_client.dart';
@@ -19,7 +18,7 @@ class UserAuthenticationDataSource extends IUserAuthenticationDataSource {
     final mockData = await MockUtils.getMock(mockFile);
 
     if (mockData != null) {
-      return UserModel.fromJson(jsonDecode(mockData));
+      return UserModel.fromJson(mockData);
     } else {
       throw ServerException();
     }

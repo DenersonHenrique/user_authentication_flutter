@@ -7,7 +7,7 @@ abstract class IUserAuthenticationUsercase {
   Future<Either<Failure, UserEntity>> userAuthentication();
 }
 
-class UserAuthenticationUsecase extends IUserAuthenticationUsercase {
+class UserAuthenticationUsecase implements IUserAuthenticationUsercase {
   final IUserAuthenticationRepository _userAuthenticationRepository;
 
   UserAuthenticationUsecase(this._userAuthenticationRepository);
