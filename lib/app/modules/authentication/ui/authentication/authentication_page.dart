@@ -37,15 +37,9 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
               ),
               Container(
                 padding: EdgeInsets.only(left: 25.0, right: 25.0),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  elevation: 16,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: AuthenticationFormWidget(),
-                  ),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: AuthenticationFormWidget(),
                 ),
               ),
             ],
