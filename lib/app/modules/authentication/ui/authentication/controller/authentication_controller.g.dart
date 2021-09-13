@@ -29,7 +29,7 @@ mixin _$AuthenticationController on _AuthenticationControllerBase, Store {
       AsyncAction('_AuthenticationControllerBase.authenticateUser');
 
   @override
-  Future authenticateUser() {
+  Future<void> authenticateUser() {
     return _$authenticateUserAsyncAction.run(() => super.authenticateUser());
   }
 

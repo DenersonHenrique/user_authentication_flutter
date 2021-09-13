@@ -16,8 +16,8 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget> {
   final TextEditingController? userController = TextEditingController();
   final TextEditingController? passwordController = TextEditingController();
   late AuthenticationController authenticationController;
-  bool passwordVisible = true;
-  final formKey = GlobalKey<FormState>();
+  bool _passwordVisible = true;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -25,10 +25,18 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget> {
     authenticationController = GetIt.instance<AuthenticationController>();
   }
 
+  Future<void> submit() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    authenticationController.authenticateUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: _formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -39,6 +47,10 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget> {
                 controller: userController,
                 hint: AppString.authenticationUserInput,
                 prefix: Icon(Icons.mail),
+                textInputType: TextInputType.emailAddress,
+                validator: (text) => text == null || text.isEmpty
+                    ? AppString.fieldCannotEmpty
+                    : null,
               ),
             ),
             Padding(
@@ -46,20 +58,23 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget> {
               child: CustomFormFieldWidget(
                 controller: passwordController,
                 hint: AppString.authenticationPasswordInput,
-                obscureText: passwordVisible,
+                obscureText: _passwordVisible,
                 prefix: Icon(Icons.vpn_key),
                 suffix: IconButton(
                   onPressed: () => setState(() {
-                    passwordVisible = !passwordVisible;
+                    _passwordVisible = !_passwordVisible;
                   }),
-                  icon: passwordVisible
+                  icon: _passwordVisible
                       ? Icon(Icons.visibility_off)
                       : Icon(Icons.visibility),
                 ),
+                validator: (text) => text == null || text.isEmpty
+                    ? AppString.fieldCannotEmpty
+                    : null,
               ),
             ),
             ElevatedButton(
-              onPressed: authenticationController.authenticateUser,
+              onPressed: submit,
               child: Text(AppString.authenticationSignInButton),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(

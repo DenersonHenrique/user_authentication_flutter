@@ -9,6 +9,7 @@ class CustomFormFieldWidget extends StatelessWidget {
   final TextInputType? textInputType;
   final bool enabled;
   final bool obscureText;
+  final String? Function(String? text)? validator;
 
   const CustomFormFieldWidget({
     this.controller,
@@ -18,6 +19,7 @@ class CustomFormFieldWidget extends StatelessWidget {
     this.textInputType,
     this.enabled = true,
     this.obscureText = false,
+    this.validator,
     Key? key,
   }) : super(key: key);
 
@@ -42,5 +44,7 @@ class CustomFormFieldWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
           ),
         ),
+        validator: validator,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
       );
 }

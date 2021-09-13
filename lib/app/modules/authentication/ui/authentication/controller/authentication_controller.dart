@@ -17,7 +17,7 @@ abstract class _AuthenticationControllerBase with Store {
   UserEntity? _userEntity;
 
   @action
-  authenticateUser() async {
+  Future<void> authenticateUser() async {
     final result = await _authenticationUsecase.userAuthentication();
     result.fold(
       (l) => true,
