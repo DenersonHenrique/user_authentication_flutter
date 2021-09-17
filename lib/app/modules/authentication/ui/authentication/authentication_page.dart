@@ -31,7 +31,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
             children: [
               Container(
                 child: FlutterLogo(
-                  size: 180,
+                  size: 180.0,
                   style: FlutterLogoStyle.stacked,
                 ),
               ),

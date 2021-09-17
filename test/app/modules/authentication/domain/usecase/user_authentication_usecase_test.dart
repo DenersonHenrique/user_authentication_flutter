@@ -3,7 +3,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:user_authentication_flutter/app/core/errors/failures.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/domain/entity/user_entity.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/domain/usecase/user_authentication_usecase.dart';
+import 'package:user_authentication_flutter/app/modules/authentication/domain/usecase/authentication_with_email_usecase.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/domain/repository/user_authentication_repository.dart';
 
 class UserAuthenticationMock extends Mock
@@ -11,7 +11,7 @@ class UserAuthenticationMock extends Mock
 
 void main() {
   late UserAuthenticationMock repository;
-  late UserAuthenticationUsecase userAuthenticationUsecase;
+  late AuthenticationEmailUsecase authenticationEmailUsecase;
   final userAuthenticated = UserEntity(
     displayName: '',
     email: '',
@@ -25,7 +25,7 @@ void main() {
 
   setUp(() {
     repository = UserAuthenticationMock();
-    userAuthenticationUsecase = UserAuthenticationUsecase(repository);
+    authenticationEmailUsecase = AuthenticationEmailUsecase(repository);
   });
 
   group('User authentication', () {
@@ -35,7 +35,7 @@ void main() {
         (_) async => Right<Failure, UserEntity>(userAuthenticated),
       );
       // Actual
-      final result = await userAuthenticationUsecase.userAuthentication();
+      final result = await authenticationEmailUsecase.userAuthentication();
       // Assert
       expect(result, Right(userAuthenticated));
       verify(() => repository.userAuthentication()).called(1);
@@ -47,7 +47,7 @@ void main() {
         (_) async => Left<Failure, UserEntity>(ServerFailure()),
       );
       // Actual
-      final result = await userAuthenticationUsecase.userAuthentication();
+      final result = await authenticationEmailUsecase.userAuthentication();
       // Assert
       expect(result, Left(ServerFailure()));
       verify(() => repository.userAuthentication()).called(1);

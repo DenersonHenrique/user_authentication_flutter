@@ -1,16 +1,16 @@
 import 'package:mobx/mobx.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/domain/entity/user_entity.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/domain/usecase/user_authentication_usecase.dart';
+import 'package:user_authentication_flutter/app/modules/authentication/domain/usecase/authentication_with_email_usecase.dart';
 part 'authentication_controller.g.dart';
 
 class AuthenticationController = _AuthenticationControllerBase
     with _$AuthenticationController;
 
 abstract class _AuthenticationControllerBase with Store {
-  final UserAuthenticationUsecase _authenticationUsecase;
+  final AuthenticationEmailUsecase _authenticationUsecase;
 
   _AuthenticationControllerBase({
-    required UserAuthenticationUsecase authenticationUsecase,
+    required AuthenticationEmailUsecase authenticationUsecase,
   }) : _authenticationUsecase = authenticationUsecase;
 
   @observable

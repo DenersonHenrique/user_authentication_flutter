@@ -22,6 +22,7 @@ class _AppWidgetState extends State<AppWidget> {
         ),
       ),
       home: AuthenticationPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
