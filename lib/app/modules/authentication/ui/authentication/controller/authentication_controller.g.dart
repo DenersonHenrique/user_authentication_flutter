@@ -25,12 +25,36 @@ mixin _$AuthenticationController on _AuthenticationControllerBase, Store {
     });
   }
 
+  final _$_userDataEntityAtom =
+      Atom(name: '_AuthenticationControllerBase._userDataEntity');
+
+  @override
+  UserDataEntity? get _userDataEntity {
+    _$_userDataEntityAtom.reportRead();
+    return super._userDataEntity;
+  }
+
+  @override
+  set _userDataEntity(UserDataEntity? value) {
+    _$_userDataEntityAtom.reportWrite(value, super._userDataEntity, () {
+      super._userDataEntity = value;
+    });
+  }
+
   final _$authenticateUserAsyncAction =
       AsyncAction('_AuthenticationControllerBase.authenticateUser');
 
   @override
   Future<void> authenticateUser() {
     return _$authenticateUserAsyncAction.run(() => super.authenticateUser());
+  }
+
+  final _$signUpUserAsyncAction =
+      AsyncAction('_AuthenticationControllerBase.signUpUser');
+
+  @override
+  Future<void> signUpUser() {
+    return _$signUpUserAsyncAction.run(() => super.signUpUser());
   }
 
   @override

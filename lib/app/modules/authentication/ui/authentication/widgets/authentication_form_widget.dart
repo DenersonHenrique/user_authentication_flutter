@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:flutter/material.dart';
 import 'package:user_authentication_flutter/app/common/constants/app_string.dart';
 import 'package:user_authentication_flutter/app/common/widgets/custom_form_field_widget.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/ui/authentication/controller/authentication_controller.dart';
