@@ -22,10 +22,19 @@ abstract class _AuthenticationControllerBase with Store {
   UserEntity? _userEntity;
 
   @observable
-  UserDataEntity? _userDataEntity;
+  UserDataEntity _userDataEntity = UserDataEntity(email: '', password: '');
+
+  UserDataEntity? get userDataEntity => _userDataEntity;
+
+  @action
+  void setEmail(String? value) => _userDataEntity.email = value ?? '';
+
+  @action
+  void setPassword(String? value) => _userDataEntity.password = value ?? '';
 
   @action
   Future<void> authenticateUser() async {
+    print(_userDataEntity);
     final result = await _authenticationUsecase.userAuthentication();
     result.fold(
       (l) => true,
@@ -35,7 +44,7 @@ abstract class _AuthenticationControllerBase with Store {
 
   @action
   Future<void> signUpUser() async {
-    final result = await _signUpWithEmailUsecase.signUpUser(_userDataEntity!);
+    final result = await _signUpWithEmailUsecase.signUpUser(_userDataEntity);
     result.fold(
       (l) => true,
       (r) => _userEntity = r,

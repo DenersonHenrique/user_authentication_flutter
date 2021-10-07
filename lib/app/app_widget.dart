@@ -20,6 +20,14 @@ class _AppWidgetState extends State<AppWidget> {
         colorScheme: ColorScheme.fromSwatch().copyWith(
           secondary: AppColors.secondColor,
         ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.green[400],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+        ),
       ),
       home: AuthenticationPage(),
       debugShowCheckedModeBanner: false,

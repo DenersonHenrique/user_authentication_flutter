@@ -9,6 +9,7 @@ class CustomFormFieldWidget extends StatelessWidget {
   final TextInputType? textInputType;
   final bool enabled;
   final bool obscureText;
+  final Function(String? value)? onSaved;
   final String? Function(String? text)? validator;
 
   const CustomFormFieldWidget({
@@ -20,6 +21,7 @@ class CustomFormFieldWidget extends StatelessWidget {
     this.enabled = true,
     this.obscureText = false,
     this.validator,
+    this.onSaved,
     Key? key,
   }) : super(key: key);
 
@@ -45,6 +47,7 @@ class CustomFormFieldWidget extends StatelessWidget {
           ),
         ),
         validator: validator,
+        onSaved: onSaved,
         autovalidateMode: AutovalidateMode.onUserInteraction,
       );
 }

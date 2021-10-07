@@ -4,6 +4,8 @@ import 'package:user_authentication_flutter/app/common/constants/app_string.dart
 import 'package:user_authentication_flutter/app/common/widgets/custom_form_field_widget.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/ui/authentication/controller/authentication_controller.dart';
 
+enum AuthMode { Authenticate, Signup }
+
 class AuthenticationFormWidget extends StatefulWidget {
   const AuthenticationFormWidget({Key? key}) : super(key: key);
 
@@ -13,11 +15,13 @@ class AuthenticationFormWidget extends StatefulWidget {
 }
 
 class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget> {
-  final TextEditingController? userController = TextEditingController();
+  final TextEditingController? emailController = TextEditingController();
   final TextEditingController? passwordController = TextEditingController();
   late AuthenticationController authenticationController;
   bool _passwordVisible = true;
-  final _formKey = GlobalKey<FormState>();
+  AuthMode _authMode = AuthMode.Authenticate;
+  final _form = GlobalKey<FormState>();
+  bool _isAuthenticate() => _authMode == AuthMode.Authenticate;
 
   @override
   void initState() {
@@ -26,17 +30,33 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget> {
   }
 
   Future<void> submit() async {
-    if (!_formKey.currentState!.validate()) {
+    if (!_form.currentState!.validate()) {
       return;
     }
-    authenticationController.authenticateUser();
+
+    _form.currentState?.save();
+
+    try {
+      if (_isAuthenticate()) {
+        authenticationController.authenticateUser();
+      } else {
+        authenticationController.signUpUser();
+      }
+    } catch (e) {}
+  }
+
+  void _switchAuthMode() {
+    if (_isAuthenticate()) {
+      setState(() => _authMode = AuthMode.Signup);
+    } else {
+      setState(() => _authMode = AuthMode.Authenticate);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      key: _form,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -44,13 +64,13 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomFormFieldWidget(
-                controller: userController,
+                controller: emailController,
                 hint: AppString.authenticationUserInput,
                 prefix: Icon(Icons.mail),
                 textInputType: TextInputType.emailAddress,
-                validator: (text) => text == null || text.isEmpty
-                    ? AppString.fieldCannotEmpty
-                    : null,
+                onSaved: (value) => authenticationController.setEmail(value),
+                validator: (text) =>
+                    text!.isEmpty ? AppString.fieldCannotEmpty : null,
               ),
             ),
             Padding(
@@ -68,19 +88,43 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget> {
                       ? Icon(Icons.visibility_off)
                       : Icon(Icons.visibility),
                 ),
-                validator: (text) => text == null || text.isEmpty
-                    ? AppString.fieldCannotEmpty
-                    : null,
+                onSaved: (value) => authenticationController.setPassword(value),
+                validator: (text) =>
+                    text!.isEmpty ? AppString.fieldCannotEmpty : null,
               ),
             ),
-            ElevatedButton(
-              onPressed: submit,
-              child: Text(AppString.authenticationSignInButton),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: submit,
+                  child: Text(
+                    _isAuthenticate()
+                        ? AppString.authenticationSignInButton
+                        : AppString.authenticationSignUpButton,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF0A5B9D),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(width: 10.0),
+                ElevatedButton(
+                  onPressed: _switchAuthMode,
+                  child: Text(
+                    _isAuthenticate()
+                        ? AppString.authenticationSignUpButton
+                        : AppString.authenticationSignInButton,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

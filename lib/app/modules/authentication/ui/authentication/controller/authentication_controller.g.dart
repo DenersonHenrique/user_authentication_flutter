@@ -29,13 +29,13 @@ mixin _$AuthenticationController on _AuthenticationControllerBase, Store {
       Atom(name: '_AuthenticationControllerBase._userDataEntity');
 
   @override
-  UserDataEntity? get _userDataEntity {
+  UserDataEntity get _userDataEntity {
     _$_userDataEntityAtom.reportRead();
     return super._userDataEntity;
   }
 
   @override
-  set _userDataEntity(UserDataEntity? value) {
+  set _userDataEntity(UserDataEntity value) {
     _$_userDataEntityAtom.reportWrite(value, super._userDataEntity, () {
       super._userDataEntity = value;
     });
@@ -55,6 +55,31 @@ mixin _$AuthenticationController on _AuthenticationControllerBase, Store {
   @override
   Future<void> signUpUser() {
     return _$signUpUserAsyncAction.run(() => super.signUpUser());
+  }
+
+  final _$_AuthenticationControllerBaseActionController =
+      ActionController(name: '_AuthenticationControllerBase');
+
+  @override
+  void setEmail(String? value) {
+    final _$actionInfo = _$_AuthenticationControllerBaseActionController
+        .startAction(name: '_AuthenticationControllerBase.setEmail');
+    try {
+      return super.setEmail(value);
+    } finally {
+      _$_AuthenticationControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setPassword(String? value) {
+    final _$actionInfo = _$_AuthenticationControllerBaseActionController
+        .startAction(name: '_AuthenticationControllerBase.setPassword');
+    try {
+      return super.setPassword(value);
+    } finally {
+      _$_AuthenticationControllerBaseActionController.endAction(_$actionInfo);
+    }
   }
 
   @override
