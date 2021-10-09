@@ -7,6 +7,7 @@ import 'package:user_authentication_flutter/app/modules/authentication/domain/re
 abstract class IAuthenticationEmailUsecase {
   Future<Either<Failure, UserEntity>> userAuthentication(
     UserDataEntity userDataEntity,
+    String userAction,
   );
 }
 
@@ -18,6 +19,10 @@ class AuthenticationEmailUsecase implements IAuthenticationEmailUsecase {
   @override
   Future<Either<Failure, UserEntity>> userAuthentication(
     UserDataEntity userDataEntity,
+    String userAction,
   ) async =>
-      await _userAuthenticationRepository.userAuthentication(userDataEntity);
+      await _userAuthenticationRepository.userAuthentication(
+        userDataEntity,
+        userAction,
+      );
 }

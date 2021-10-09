@@ -48,7 +48,7 @@ void main() {
       // Assert
       successMock();
       // Actual
-      final result = await datasource.authenticate();
+      final result = await datasource.authenticate(_userDataModel, '');
       // Assert
       expect(result, isA<UserModel>());
     });
@@ -66,7 +66,7 @@ void main() {
         ),
       );
       // Actual
-      final result = datasource.authenticate();
+      final result = datasource.authenticate(_userDataModel, '');
       // Assert
       expect(() => result, throwsA(ServerException()));
     });
@@ -75,7 +75,7 @@ void main() {
       // Assert
       successMock();
       // Actual
-      await datasource.authenticate();
+      await datasource.authenticate(_userDataModel, '');
       // Assert
       verify(() => httpClient.post(
             body: any(named: 'body'),

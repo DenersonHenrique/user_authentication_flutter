@@ -9,8 +9,9 @@ import 'package:user_authentication_flutter/app/modules/authentication/data/mode
 
 abstract class IUserAuthenticationDataSource {
   Future<UserModel> authenticate(
-      // UserDataModel userDataModel,
-      );
+    UserDataModel userDataModel,
+    String userAction,
+  );
 }
 
 class UserAuthenticationDataSource implements IUserAuthenticationDataSource {
@@ -19,15 +20,22 @@ class UserAuthenticationDataSource implements IUserAuthenticationDataSource {
   UserAuthenticationDataSource({required this.httpClient});
 
   @override
-  Future<UserModel> authenticate() async {
+  Future<UserModel> authenticate(
+    UserDataModel userDataModel,
+    String userAction,
+  ) async {
+    // HTTP implementation
     final response = await httpClient.post(
-      url: AppUrl.authenticationUrl('urlSegment', AppKey.AUTH_URL),
-      body: {},
+      url: AppUrl.authenticationUrl(userAction, AppKey.AUTH_API_KEY),
+      body: {
+        "email": userDataModel.email,
+        "password": userDataModel.password,
+        "returnSecureToken": true,
+      },
     );
 
     if (response.statusCode == 200) {
       return UserModel.fromJson(jsonDecode(response.data));
-      // return UserModel.fromJson(mockData);
     } else {
       throw ServerException();
     }

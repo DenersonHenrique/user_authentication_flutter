@@ -14,7 +14,7 @@ class _AppWidgetState extends State<AppWidget> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Authentication Demo',
+      title: 'User Authentication Demo',
       theme: ThemeData(
         primaryColor: AppColors.primaryColor,
         colorScheme: ColorScheme.fromSwatch().copyWith(

@@ -6,5 +6,6 @@ import 'package:user_authentication_flutter/app/modules/authentication/domain/en
 abstract class IUserAuthenticationRepository {
   Future<Either<Failure, UserEntity>> userAuthentication(
     UserDataEntity userDataEntity,
+    String userAction,
   );
 }

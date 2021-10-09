@@ -33,10 +33,10 @@ abstract class _AuthenticationControllerBase with Store {
   void setPassword(String? value) => _userDataEntity.password = value ?? '';
 
   @action
-  Future<void> authenticateUser() async {
-    print(_userDataEntity);
+  Future<void> authenticateUser(String isAuthenticated) async {
     final result = await _authenticationUsecase.userAuthentication(
       _userDataEntity,
+      isAuthenticated,
     );
     result.fold(
       (l) => true,

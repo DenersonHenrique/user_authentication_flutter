@@ -37,28 +37,30 @@ void main() {
   group('User authentication', () {
     test('Should return a user authenticated.', () async {
       // Arrange
-      when(() => repository.userAuthentication(_userDataEntity)).thenAnswer(
+      when(() => repository.userAuthentication(_userDataEntity, '')).thenAnswer(
         (_) async => Right<Failure, UserEntity>(userAuthenticated),
       );
       // Actual
-      final result =
-          await authenticationEmailUsecase.userAuthentication(_userDataEntity);
+      final result = await authenticationEmailUsecase.userAuthentication(
+          _userDataEntity, '');
       // Assert
       expect(result, Right(userAuthenticated));
-      verify(() => repository.userAuthentication(_userDataEntity)).called(1);
+      verify(() => repository.userAuthentication(_userDataEntity, ''))
+          .called(1);
     });
 
     test('Should return a ServerFailure', () async {
       // Arrange
-      when(() => repository.userAuthentication(_userDataEntity)).thenAnswer(
+      when(() => repository.userAuthentication(_userDataEntity, '')).thenAnswer(
         (_) async => Left<Failure, UserEntity>(ServerFailure()),
       );
       // Actual
-      final result =
-          await authenticationEmailUsecase.userAuthentication(_userDataEntity);
+      final result = await authenticationEmailUsecase.userAuthentication(
+          _userDataEntity, '');
       // Assert
       expect(result, Left(ServerFailure()));
-      verify(() => repository.userAuthentication(_userDataEntity)).called(1);
+      verify(() => repository.userAuthentication(_userDataEntity, ''))
+          .called(1);
     });
   });
 }

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:user_authentication_flutter/app/core/httpClient/http_client.dart';
 
@@ -28,7 +29,7 @@ class HttpClient implements IHttpClient {
   }) async {
     final response = await client.post(
       Uri.parse(url),
-      body: body,
+      body: jsonEncode(body),
     );
 
     return HttpResponse(
