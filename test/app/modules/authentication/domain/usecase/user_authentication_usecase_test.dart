@@ -3,6 +3,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:user_authentication_flutter/app/core/errors/failures.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/domain/entity/user_entity.dart';
+import 'package:user_authentication_flutter/app/modules/authentication/domain/entity/user_data_entity.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/domain/usecase/authentication_with_email_usecase.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/domain/repository/user_authentication_repository.dart';
 
@@ -23,6 +24,11 @@ void main() {
     registered: true,
   );
 
+  final UserDataEntity _userDataEntity = UserDataEntity(
+    email: '',
+    password: '',
+  );
+
   setUp(() {
     repository = UserAuthenticationMock();
     authenticationEmailUsecase = AuthenticationEmailUsecase(repository);
@@ -31,26 +37,28 @@ void main() {
   group('User authentication', () {
     test('Should return a user authenticated.', () async {
       // Arrange
-      when(() => repository.userAuthentication()).thenAnswer(
+      when(() => repository.userAuthentication(_userDataEntity)).thenAnswer(
         (_) async => Right<Failure, UserEntity>(userAuthenticated),
       );
       // Actual
-      final result = await authenticationEmailUsecase.userAuthentication();
+      final result =
+          await authenticationEmailUsecase.userAuthentication(_userDataEntity);
       // Assert
       expect(result, Right(userAuthenticated));
-      verify(() => repository.userAuthentication()).called(1);
+      verify(() => repository.userAuthentication(_userDataEntity)).called(1);
     });
 
     test('Should return a ServerFailure', () async {
       // Arrange
-      when(() => repository.userAuthentication()).thenAnswer(
+      when(() => repository.userAuthentication(_userDataEntity)).thenAnswer(
         (_) async => Left<Failure, UserEntity>(ServerFailure()),
       );
       // Actual
-      final result = await authenticationEmailUsecase.userAuthentication();
+      final result =
+          await authenticationEmailUsecase.userAuthentication(_userDataEntity);
       // Assert
       expect(result, Left(ServerFailure()));
-      verify(() => repository.userAuthentication()).called(1);
+      verify(() => repository.userAuthentication(_userDataEntity)).called(1);
     });
   });
 }

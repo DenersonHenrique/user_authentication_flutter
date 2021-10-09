@@ -35,7 +35,9 @@ abstract class _AuthenticationControllerBase with Store {
   @action
   Future<void> authenticateUser() async {
     print(_userDataEntity);
-    final result = await _authenticationUsecase.userAuthentication();
+    final result = await _authenticationUsecase.userAuthentication(
+      _userDataEntity,
+    );
     result.fold(
       (l) => true,
       (r) => _userEntity = r,

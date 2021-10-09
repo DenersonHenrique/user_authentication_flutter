@@ -16,7 +16,7 @@ abstract class IHttpClient {
 
 class HttpResponse {
   final dynamic data;
-  final int statusCode;
+  final int? statusCode;
 
   HttpResponse({
     this.data,
