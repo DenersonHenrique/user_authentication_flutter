@@ -48,6 +48,6 @@ class CustomFormFieldWidget extends StatelessWidget {
         ),
         validator: validator,
         onSaved: onSaved,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        // autovalidateMode: AutovalidateMode.onUserInteraction,
       );
 }

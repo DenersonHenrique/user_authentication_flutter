@@ -68,7 +68,7 @@ void main() {
       // Actual
       final result = datasource.authenticate(_userDataModel, '');
       // Assert
-      expect(() => result, throwsA(ServerException()));
+      expect(() => result, throwsA(ServerException(message: '')));
     });
 
     test('Should call the post method with url', () async {

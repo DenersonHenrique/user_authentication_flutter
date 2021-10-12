@@ -25,7 +25,7 @@ class SignUpWithEmailDataSource implements ISignUpWithEmailDataSource {
     if (mockData != null) {
       return UserModel.fromJson(mockData);
     } else {
-      throw ServerException();
+      throw ServerException(message: '');
     }
   }
 }

@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:user_authentication_flutter/app/core/errors/failures.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/domain/entity/user_entity.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/data/model/user_data_model.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/domain/entity/user_data_entity.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/data/datasource/user_authentication_datasource.dart';
+import 'package:user_authentication_flutter/app/modules/authentication/domain/erros/erros.dart';
+import 'package:user_authentication_flutter/app/modules/authentication/domain/entity/user_entity.dart';
+import 'package:user_authentication_flutter/app/modules/authentication/domain/entity/user_data_entity.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/domain/repository/user_authentication_repository.dart';
 
 class UserAuthenticationRepository implements IUserAuthenticationRepository {
@@ -28,10 +29,10 @@ class UserAuthenticationRepository implements IUserAuthenticationRepository {
         userAction,
       );
       return Right(response);
-    } on ServerFailure catch (error) {
-      return Left(error);
+    } on AuthFailure catch (error) {
+      return Left(AuthFailure(message: error.message));
     } catch (error) {
-      return Left(ServerFailure());
+      return Left(ServerFailure(message: ''));
     }
   }
 }

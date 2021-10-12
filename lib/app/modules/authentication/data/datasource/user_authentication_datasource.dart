@@ -37,7 +37,8 @@ class UserAuthenticationDataSource implements IUserAuthenticationDataSource {
     if (response.statusCode == 200) {
       return UserModel.fromJson(jsonDecode(response.data));
     } else {
-      throw ServerException();
+      final error = jsonDecode(response.data);
+      throw ServerException(message: error['error']['message']);
     }
 
     // final mockFile = 'user_authenticated';

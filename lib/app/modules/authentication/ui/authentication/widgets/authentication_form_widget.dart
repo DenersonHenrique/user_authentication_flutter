@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:user_authentication_flutter/app/utils/auth_utils.dart';
 import 'package:user_authentication_flutter/app/common/constants/app_string.dart';
+import 'package:user_authentication_flutter/app/utils/form_field_validations.dart';
 import 'package:user_authentication_flutter/app/common/widgets/custom_form_field_widget.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/ui/authentication/controller/authentication_controller.dart';
 
@@ -19,7 +20,7 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget>
     with SingleTickerProviderStateMixin {
   late AuthenticationController authenticationController;
   final TextEditingController? emailController = TextEditingController();
-  final TextEditingController? passwordController = TextEditingController();
+  final TextEditingController? _passwordController = TextEditingController();
   bool _passwordVisible = true;
   final _form = GlobalKey<FormState>();
   AuthMode _authMode = AuthMode.Authenticate;
@@ -37,7 +38,7 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget>
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(
-        milliseconds: 300,
+        milliseconds: 600,
       ),
     );
 
@@ -79,7 +80,7 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget>
       authenticationController.authenticateUser(
         AuthUtils.authAction(_isAuthenticate()),
       );
-    } catch (e) {}
+    } catch (error) {}
   }
 
   void _switchAuthMode() {
@@ -108,14 +109,13 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget>
                 prefix: Icon(Icons.mail),
                 textInputType: TextInputType.emailAddress,
                 onSaved: (value) => authenticationController.setEmail(value),
-                validator: (text) =>
-                    text!.isEmpty ? AppString.fieldCannotEmpty : null,
+                validator: (text) => FieldValidation.isEmpty(text),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomFormFieldWidget(
-                controller: passwordController,
+                controller: _passwordController,
                 hint: AppString.authenticationPasswordInput,
                 obscureText: _passwordVisible,
                 prefix: Icon(Icons.vpn_key),
@@ -128,8 +128,7 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget>
                       : Icon(Icons.visibility),
                 ),
                 onSaved: (value) => authenticationController.setPassword(value),
-                validator: (text) =>
-                    text!.isEmpty ? AppString.fieldCannotEmpty : null,
+                validator: (text) => FieldValidation.valueLength(text, 6),
               ),
             ),
             AnimatedContainer(
@@ -137,7 +136,7 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget>
                 minHeight: _isAuthenticate() ? 0 : 80,
                 maxHeight: _isAuthenticate() ? 0 : 160,
               ),
-              duration: Duration(milliseconds: 300),
+              duration: Duration(milliseconds: 600),
               curve: Curves.linear,
               child: FadeTransition(
                 opacity: _opacityAnimation!,
@@ -160,7 +159,7 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget>
                       validator: _isAuthenticate()
                           ? null
                           : (value) {
-                              if (value != passwordController?.text) {
+                              if (value != _passwordController?.text) {
                                 return AppString.notConfirmedPassword;
                               }
                               return null;

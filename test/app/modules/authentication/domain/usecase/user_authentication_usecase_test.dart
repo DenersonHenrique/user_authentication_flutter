@@ -52,13 +52,13 @@ void main() {
     test('Should return a ServerFailure', () async {
       // Arrange
       when(() => repository.userAuthentication(_userDataEntity, '')).thenAnswer(
-        (_) async => Left<Failure, UserEntity>(ServerFailure()),
+        (_) async => Left<Failure, UserEntity>(ServerFailure(message: '')),
       );
       // Actual
       final result = await authenticationEmailUsecase.userAuthentication(
           _userDataEntity, '');
       // Assert
-      expect(result, Left(ServerFailure()));
+      expect(result, Left(ServerFailure(message: '')));
       verify(() => repository.userAuthentication(_userDataEntity, ''))
           .called(1);
     });

@@ -25,7 +25,7 @@ class SignUpWithEmailRepository implements ISignUpWithEmailRepository {
     } on ServerFailure catch (error) {
       return Left(error);
     } catch (error) {
-      return Left(ServerFailure());
+      return Left(ServerFailure(message: ''));
     }
   }
 }

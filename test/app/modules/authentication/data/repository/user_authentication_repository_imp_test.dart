@@ -57,7 +57,7 @@ void main() {
       // Actual
       final result = await repository.userAuthentication(userDataEntity, '');
       // Assert
-      expect(result, Left(ServerFailure()));
+      expect(result, Left(ServerFailure(message: '')));
       verify(() => datasource.authenticate(userDataModel, '')).called(1);
     });
   });

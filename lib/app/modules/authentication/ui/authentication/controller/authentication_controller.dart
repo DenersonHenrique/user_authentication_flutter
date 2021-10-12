@@ -39,7 +39,7 @@ abstract class _AuthenticationControllerBase with Store {
       isAuthenticated,
     );
     result.fold(
-      (l) => true,
+      (l) => print(l),
       (r) => _userEntity = r,
     );
   }
@@ -48,7 +48,7 @@ abstract class _AuthenticationControllerBase with Store {
   Future<void> signUpUser() async {
     final result = await _signUpWithEmailUsecase.signUpUser(_userDataEntity);
     result.fold(
-      (l) => true,
+      (l) => print(l),
       (r) => _userEntity = r,
     );
   }
