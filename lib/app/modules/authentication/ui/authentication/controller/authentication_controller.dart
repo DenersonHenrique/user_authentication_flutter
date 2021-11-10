@@ -40,7 +40,7 @@ abstract class _AuthenticationControllerBase with Store {
     );
     result.fold(
       (l) => print(l),
-      (r) => _userEntity = r,
+      (response) => true,
     );
   }
 

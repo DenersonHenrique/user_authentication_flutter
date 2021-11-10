@@ -38,13 +38,13 @@ void main() {
     test('Should return a user authenticated.', () async {
       // Arrange
       when(() => repository.userAuthentication(_userDataEntity, '')).thenAnswer(
-        (_) async => Right<Failure, UserEntity>(userAuthenticated),
+        (_) async => Right<Failure, bool>(true),
       );
       // Actual
       final result = await authenticationEmailUsecase.userAuthentication(
           _userDataEntity, '');
       // Assert
-      expect(result, Right(userAuthenticated));
+      expect(result, Right(true));
       verify(() => repository.userAuthentication(_userDataEntity, ''))
           .called(1);
     });
@@ -52,7 +52,7 @@ void main() {
     test('Should return a ServerFailure', () async {
       // Arrange
       when(() => repository.userAuthentication(_userDataEntity, '')).thenAnswer(
-        (_) async => Left<Failure, UserEntity>(ServerFailure(message: '')),
+        (_) async => Left<Failure, bool>(ServerFailure(message: '')),
       );
       // Actual
       final result = await authenticationEmailUsecase.userAuthentication(

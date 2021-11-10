@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:user_authentication_flutter/app/utils/mock_utils.dart';
+// import 'package:user_authentication_flutter/app/utils/mock_utils.dart';
 import 'package:user_authentication_flutter/app/core/errors/exceptions.dart';
 import 'package:user_authentication_flutter/app/common/constants/app_keys.dart';
 import 'package:user_authentication_flutter/app/common/constants/app_urls.dart';
@@ -37,17 +37,17 @@ class UserAuthenticationDataSource implements IUserAuthenticationDataSource {
     if (response.statusCode == 200) {
       return UserModel.fromJson(jsonDecode(response.data));
     } else {
-      final error = jsonDecode(response.data);
-      throw ServerException(message: error['error']['message']);
+      throw ServerException(message: '');
     }
 
+    // MOCK implementation
     // final mockFile = 'user_authenticated';
     // final mockData = await MockUtils.getMock(mockFile);
 
     // if (mockData != null) {
     //   return UserModel.fromJson(mockData);
     // } else {
-    //   throw ServerException();
+    //   throw ServerException(message: 'Error datasource');
     // }
   }
 }

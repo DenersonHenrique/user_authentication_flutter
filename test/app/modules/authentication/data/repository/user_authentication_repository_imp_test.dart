@@ -36,29 +36,32 @@ void main() {
   setUp(() {
     datasource = UserAuthenticationDataSourceMock();
     repository = UserAuthenticationRepository(datasource);
+    registerFallbackValue<UserDataModel>(userDataModel);
   });
 
   group('Get user authenticated repository implementation.', () {
-    test('Should return user authenticated model.', () async {
+    test('Should return true value to user authenticated.', () async {
       // Arrange
-      when(() => datasource.authenticate(userDataModel, ''))
-          .thenAnswer((_) async => userModel);
+      when(
+        () => datasource.authenticate(any(), ''),
+      ).thenAnswer((_) async => userModel);
       // Actual
       final result = await repository.userAuthentication(userDataEntity, '');
       // Assert
-      expect(result, Right(userModel));
-      verify(() => datasource.authenticate(userDataModel, '')).called(1);
+      expect(result, Right(true));
+      verify(() => datasource.authenticate(any(), '')).called(1);
     });
 
     test('Should return a server failure when call datasource.', () async {
       // Arrange
-      when(() => datasource.authenticate(userDataModel, ''))
-          .thenThrow(Exception());
+      when(
+        () => datasource.authenticate(any(), ''),
+      ).thenThrow(ServerFailure(message: ''));
       // Actual
       final result = await repository.userAuthentication(userDataEntity, '');
       // Assert
       expect(result, Left(ServerFailure(message: '')));
-      verify(() => datasource.authenticate(userDataModel, '')).called(1);
+      verify(() => datasource.authenticate(any(), '')).called(1);
     });
   });
 }

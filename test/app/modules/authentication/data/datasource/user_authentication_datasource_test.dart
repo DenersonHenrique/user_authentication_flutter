@@ -34,18 +34,22 @@ void main() {
   }""";
 
   successMock() {
-    when(() => httpClient.post(
-          body: any(named: 'body'),
-          url: any(named: 'url'),
-        )).thenAnswer((_) async => HttpResponse(
-          statusCode: 200,
-          data: json,
-        ));
+    when(
+      () => httpClient.post(
+        body: any(named: 'body'),
+        url: any(named: 'url'),
+      ),
+    ).thenAnswer(
+      (_) async => HttpResponse(
+        statusCode: 200,
+        data: json,
+      ),
+    );
   }
 
-  group('Get user authenticated datasource implementation.', () {
-    test('Should return a user authorization model.', () async {
-      // Assert
+  group('HTTP tests - Get user authenticated datasource implementation.', () {
+    test('Should return a authorizared user model.', () async {
+      // Arrange
       successMock();
       // Actual
       final result = await datasource.authenticate(_userDataModel, '');
@@ -77,10 +81,12 @@ void main() {
       // Actual
       await datasource.authenticate(_userDataModel, '');
       // Assert
-      verify(() => httpClient.post(
-            body: any(named: 'body'),
-            url: any(named: 'url'),
-          )).called(1);
+      verify(
+        () => httpClient.post(
+          body: any(named: 'body'),
+          url: any(named: 'url'),
+        ),
+      ).called(1);
     });
   });
 }

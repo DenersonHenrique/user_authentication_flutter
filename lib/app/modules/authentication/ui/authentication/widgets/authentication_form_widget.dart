@@ -69,20 +69,6 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget>
     _animationController?.dispose();
   }
 
-  Future<void> submit() async {
-    if (!_form.currentState!.validate()) {
-      return;
-    }
-
-    _form.currentState?.save();
-
-    try {
-      authenticationController.authenticateUser(
-        AuthUtils.authAction(_isAuthenticate()),
-      );
-    } catch (error) {}
-  }
-
   void _switchAuthMode() {
     if (_isAuthenticate()) {
       setState(() => _authMode = AuthMode.Signup);
@@ -91,6 +77,20 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget>
       setState(() => _authMode = AuthMode.Authenticate);
       _animationController?.reverse();
     }
+  }
+
+  Future<void> submit() async {
+    if (!_form.currentState!.validate()) {
+      return;
+    }
+
+    _form.currentState?.save();
+
+    try {
+      await authenticationController.authenticateUser(
+        AuthUtils.authAction(_isAuthenticate()),
+      );
+    } catch (error) {}
   }
 
   @override
