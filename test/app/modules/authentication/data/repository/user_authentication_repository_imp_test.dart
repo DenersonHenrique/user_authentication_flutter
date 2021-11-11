@@ -39,8 +39,8 @@ void main() {
     registerFallbackValue<UserDataModel>(userDataModel);
   });
 
-  group('Get user authenticated repository implementation.', () {
-    test('Should return true value to user authenticated.', () async {
+  group('Repository implementation, user authenticate.', () {
+    test('Should return a UserEntity value to user authenticated.', () async {
       // Arrange
       when(
         () => datasource.authenticate(any(), ''),
@@ -48,7 +48,7 @@ void main() {
       // Actual
       final result = await repository.userAuthentication(userDataEntity, '');
       // Assert
-      expect(result, Right(true));
+      expect(result, Right(userModel));
       verify(() => datasource.authenticate(any(), '')).called(1);
     });
 

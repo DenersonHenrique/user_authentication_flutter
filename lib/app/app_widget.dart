@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:user_authentication_flutter/app/modules/home/ui/home_page.dart';
 import 'common/constants/app_colors.dart';
 import 'modules/authentication/ui/authentication/authentication_page.dart';
+import 'package:user_authentication_flutter/app/modules/home/ui/home_page.dart';
 import 'package:user_authentication_flutter/app/common/constants/app_routes.dart';
 
 class AppWidget extends StatefulWidget {

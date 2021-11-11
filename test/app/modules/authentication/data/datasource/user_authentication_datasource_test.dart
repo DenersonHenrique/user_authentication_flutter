@@ -47,7 +47,7 @@ void main() {
     );
   }
 
-  group('HTTP tests - Get user authenticated datasource implementation.', () {
+  group('HTTP tests - Datasource implementation, user authenticate.', () {
     test('Should return a authorizared user model.', () async {
       // Arrange
       successMock();
@@ -57,7 +57,7 @@ void main() {
       expect(result, isA<UserModel>());
     });
 
-    test('Should throw a ServerException when the call is unsuccessful',
+    test('Should throw a ServerException when the call is unsuccessful.',
         () async {
       // Arrange
       when(() => httpClient.post(
@@ -75,7 +75,7 @@ void main() {
       expect(() => result, throwsA(ServerException(message: '')));
     });
 
-    test('Should call the post method with url', () async {
+    test('Should call the post method with url.', () async {
       // Assert
       successMock();
       // Actual

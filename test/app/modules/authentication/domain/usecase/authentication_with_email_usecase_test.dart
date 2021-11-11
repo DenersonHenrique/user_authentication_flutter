@@ -34,25 +34,25 @@ void main() {
     authenticationEmailUsecase = AuthenticationEmailUsecase(repository);
   });
 
-  group('User authentication', () {
-    test('Should return a user authenticated.', () async {
+  group('Usecase implementation, user authentication.', () {
+    test('Should return a UserEntity authenticated.', () async {
       // Arrange
       when(() => repository.userAuthentication(_userDataEntity, '')).thenAnswer(
-        (_) async => Right<Failure, bool>(true),
+        (_) async => Right<Failure, UserEntity>(userAuthenticated),
       );
       // Actual
       final result = await authenticationEmailUsecase.userAuthentication(
           _userDataEntity, '');
       // Assert
-      expect(result, Right(true));
+      expect(result, Right(userAuthenticated));
       verify(() => repository.userAuthentication(_userDataEntity, ''))
           .called(1);
     });
 
-    test('Should return a ServerFailure', () async {
+    test('Should return a ServerFailure.', () async {
       // Arrange
       when(() => repository.userAuthentication(_userDataEntity, '')).thenAnswer(
-        (_) async => Left<Failure, bool>(ServerFailure(message: '')),
+        (_) async => Left<Failure, UserEntity>(ServerFailure(message: '')),
       );
       // Actual
       final result = await authenticationEmailUsecase.userAuthentication(
