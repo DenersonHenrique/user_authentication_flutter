@@ -7,4 +7,6 @@ class AppString {
   static String notConfirmedPassword = 'Senhas diferentes.';
   static String fieldCannotEmpty = 'Campo obrigatório';
   static String fieldCaracterLength = 'Mínimo de caracteres';
+  static String authenticationAction = 'signInWithPassword';
+  static String signUpAction = 'signUp';
 }

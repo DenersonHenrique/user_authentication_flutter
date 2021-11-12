@@ -14,13 +14,17 @@ class SignUpWithEmailRepository implements ISignUpWithEmailRepository {
   @override
   Future<Either<Failure, UserEntity>> signUpUser(
     UserDataEntity userDataEntity,
+    String userAction,
   ) async {
     UserDataModel userDataModel = UserDataModel(
       email: userDataEntity.email,
       password: userDataEntity.password,
     );
     try {
-      final response = await _datasource.signUp(userDataModel);
+      final response = await _datasource.signUp(
+        userDataModel,
+        userAction,
+      );
       return Right(response);
     } on ServerFailure catch (error) {
       return Left(error);

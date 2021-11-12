@@ -1,10 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
-import 'package:user_authentication_flutter/app/utils/auth_utils.dart';
-import 'package:user_authentication_flutter/app/common/constants/app_string.dart';
-import 'package:user_authentication_flutter/app/utils/form_field_validations.dart';
-import 'package:user_authentication_flutter/app/common/widgets/custom_form_field_widget.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/ui/authentication/controller/authentication_controller.dart';
+import '../../../../../utils/auth_utils.dart';
+import '../controller/authentication_controller.dart';
+import '../../../../../common/constants/app_string.dart';
+import '../../../../../utils/form_field_validations.dart';
+import '../../../../../common/widgets/custom_form_field_widget.dart';
 
 enum AuthMode { Authenticate, Signup }
 
@@ -79,7 +79,7 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget>
     }
   }
 
-  Future<void> submit() async {
+  Future<void> _submit() async {
     if (!_form.currentState!.validate()) {
       return;
     }
@@ -173,7 +173,7 @@ class _AuthenticationFormWidgetState extends State<AuthenticationFormWidget>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: submit,
+                  onPressed: _submit,
                   child: Text(
                     _isAuthenticate()
                         ? AppString.authenticationSignInButton

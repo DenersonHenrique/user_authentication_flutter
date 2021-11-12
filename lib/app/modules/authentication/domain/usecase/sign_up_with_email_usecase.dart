@@ -7,6 +7,7 @@ import '../repository/sign_up_with_email_repository.dart';
 abstract class ISignUpWithEmailUsecase {
   Future<Either<Failure, UserEntity>> signUpUser(
     UserDataEntity userDataEntity,
+    String userAction,
   );
 }
 
@@ -18,6 +19,10 @@ class SignUpWithEmailUsecase implements ISignUpWithEmailUsecase {
   @override
   Future<Either<Failure, UserEntity>> signUpUser(
     UserDataEntity userDataEntity,
+    String userAction,
   ) async =>
-      await _signUpWithEmailRepository.signUpUser(userDataEntity);
+      await _signUpWithEmailRepository.signUpUser(
+        userDataEntity,
+        userAction,
+      );
 }

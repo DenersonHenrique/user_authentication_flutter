@@ -54,8 +54,8 @@ mixin _$AuthenticationController on _AuthenticationControllerBase, Store {
       AsyncAction('_AuthenticationControllerBase.signUpUser');
 
   @override
-  Future<void> signUpUser() {
-    return _$signUpUserAsyncAction.run(() => super.signUpUser());
+  Future<void> signUpUser(String isAuthenticated) {
+    return _$signUpUserAsyncAction.run(() => super.signUpUser(isAuthenticated));
   }
 
   final _$_AuthenticationControllerBaseActionController =

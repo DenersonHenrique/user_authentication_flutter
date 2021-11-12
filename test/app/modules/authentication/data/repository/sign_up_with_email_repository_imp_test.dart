@@ -5,15 +5,15 @@ import 'package:user_authentication_flutter/app/core/errors/failures.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/data/model/user_model.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/data/model/user_data_model.dart';
 import 'package:user_authentication_flutter/app/modules/authentication/domain/entity/user_data_entity.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/data/datasource/user_authentication_datasource.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/data/repository/user_authentication_repository_imp.dart';
+import 'package:user_authentication_flutter/app/modules/authentication/data/datasource/sign_up_with_email_datasource.dart';
+import 'package:user_authentication_flutter/app/modules/authentication/data/repository/sign_up_with_email_repository_imp.dart';
 
-class UserAuthenticationDataSourceMock extends Mock
-    implements IUserAuthenticationDataSource {}
+class SignUpWithEmailDataSourceMock extends Mock
+    implements ISignUpWithEmailDataSource {}
 
 void main() {
-  late UserAuthenticationRepository repository;
-  late UserAuthenticationDataSourceMock datasource;
+  late SignUpWithEmailRepository repository;
+  late SignUpWithEmailDataSourceMock datasource;
   final _userModel = UserModel(
     kind: 'kind',
     localId: 'localId',
@@ -28,40 +28,40 @@ void main() {
     email: '',
     password: '',
   );
-  final _userDataEntity = UserDataEntity(
+  final userDataEntity = UserDataEntity(
     email: '',
     password: '',
   );
 
   setUp(() {
-    datasource = UserAuthenticationDataSourceMock();
-    repository = UserAuthenticationRepository(datasource);
+    datasource = SignUpWithEmailDataSourceMock();
+    repository = SignUpWithEmailRepository(datasource);
     registerFallbackValue<UserDataModel>(_userDataModel);
   });
 
-  group('Repository implementation, user authenticate.', () {
-    test('Should return a UserEntity value to user authenticated.', () async {
+  group('Repository implementation, user sign up', () {
+    test('Should return a UserEntity value to user registered.', () async {
       // Arrange
       when(
-        () => datasource.authenticate(any(), ''),
+        () => datasource.signUp(any(), ''),
       ).thenAnswer((_) async => _userModel);
       // Actual
-      final result = await repository.userAuthentication(_userDataEntity, '');
+      final result = await repository.signUpUser(userDataEntity, '');
       // Assert
       expect(result, Right(_userModel));
-      verify(() => datasource.authenticate(any(), '')).called(1);
+      verify(() => datasource.signUp(any(), '')).called(1);
     });
 
     test('Should return a server failure when call datasource.', () async {
       // Arrange
       when(
-        () => datasource.authenticate(any(), ''),
+        () => datasource.signUp(any(), ''),
       ).thenThrow(ServerFailure(message: ''));
       // Actual
-      final result = await repository.userAuthentication(_userDataEntity, '');
+      final result = await repository.signUpUser(userDataEntity, '');
       // Assert
       expect(result, Left(ServerFailure(message: '')));
-      verify(() => datasource.authenticate(any(), '')).called(1);
+      verify(() => datasource.signUp(any(), '')).called(1);
     });
   });
 }

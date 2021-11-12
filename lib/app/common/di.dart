@@ -1,12 +1,12 @@
 import 'package:get_it/get_it.dart';
-import 'package:user_authentication_flutter/app/core/httpClient/http_client_imp.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/domain/usecase/sign_up_with_email_usecase.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/data/datasource/sign_up_with_email_datasource.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/data/datasource/user_authentication_datasource.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/domain/usecase/authentication_with_email_usecase.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/data/repository/sign_up_with_email_repository_imp.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/data/repository/user_authentication_repository_imp.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/ui/authentication/controller/authentication_controller.dart';
+import '../core/httpClient/http_client_imp.dart';
+import '../modules/authentication/domain/usecase/sign_up_with_email_usecase.dart';
+import '../modules/authentication/data/datasource/sign_up_with_email_datasource.dart';
+import '../modules/authentication/data/datasource/user_authentication_datasource.dart';
+import '../modules/authentication/domain/usecase/authentication_with_email_usecase.dart';
+import '../modules/authentication/data/repository/sign_up_with_email_repository_imp.dart';
+import '../modules/authentication/data/repository/user_authentication_repository_imp.dart';
+import '../modules/authentication/ui/authentication/controller/authentication_controller.dart';
 
 class AppInjection {
   void call(GetIt instanceGetIt) {

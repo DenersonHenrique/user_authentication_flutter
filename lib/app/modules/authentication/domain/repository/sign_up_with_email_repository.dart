@@ -6,5 +6,6 @@ import '../../../../core/errors/failures.dart';
 abstract class ISignUpWithEmailRepository {
   Future<Either<Failure, UserEntity>> signUpUser(
     UserDataEntity userDataEntity,
+    String userAction,
   );
 }

@@ -1,11 +1,11 @@
 import 'dart:convert';
-// import 'package:user_authentication_flutter/app/utils/mock_utils.dart';
-import 'package:user_authentication_flutter/app/core/errors/exceptions.dart';
-import 'package:user_authentication_flutter/app/common/constants/app_keys.dart';
-import 'package:user_authentication_flutter/app/common/constants/app_urls.dart';
-import 'package:user_authentication_flutter/app/core/httpClient/http_client.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/data/model/user_model.dart';
-import 'package:user_authentication_flutter/app/modules/authentication/data/model/user_data_model.dart';
+import '../model/user_model.dart';
+import '../model/user_data_model.dart';
+// import '../../../../utils/mock_utils.dart';
+import '../../../../core/errors/exceptions.dart';
+import '../../../../common/constants/app_keys.dart';
+import '../../../../common/constants/app_urls.dart';
+import '../../../../core/httpClient/http_client.dart';
 
 abstract class IUserAuthenticationDataSource {
   Future<UserModel> authenticate(
